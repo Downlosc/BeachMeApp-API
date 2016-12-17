@@ -5,7 +5,7 @@ var configs = require('./config/config'+ (process.env.NODE_ENV || ''));
 var connection = require('./server/db/connection');
 
 
-//var routes = require('./server/routes/routes');
+var routes = require('./server/routes/routes');
 var sunShade = require('./server/models/sunshade');
 var wristBand = require('./server/models/wristband');
 
@@ -20,9 +20,9 @@ app.use(bodyparser.json());
 var server = app.listen(configs.NODEJS_PORT, configs.NODEJS_IP, function(){
   console.log('%s: Node server started on %s:%d', Date(Date.now()), configs.NODEJS_IP, configs.NODEJS_PORT);
   connection.init();
-  // routes.configure(app);
-  //
-  // sunShade.initTable();
+  routes.configure(app);
+  
+  sunShade.initTable();
   // wristBand.initTable();
 
   app.get('/', function(req, res){

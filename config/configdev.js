@@ -1,4 +1,4 @@
-var configs = {
+var configsdev = {
     MYSQL_DB_HOST: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
     MYSQL_DB_PORT: process.env.OPENSHIFT_MYSQL_DB_PORT || 32771,
     MYSQL_DB_USERNAME: process.env.OPENSHIFT_MYSQL_DB_USERNAME || 'root',
@@ -7,4 +7,4 @@ var configs = {
     NODEJS_PORT: process.env.OPENSHIFT_NODEJS_PORT || 8080,
 };
 
-module.exports = configs;
+module.exports = configsdev;
