@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 
-var configs = require('./config/config'+ (process.env.NODE_ENV || ''));
+var configs = require('./config/config_'+ (process.env.NODE_ENV || ''));
 var connection = require('./server/db/connection');
 
 
@@ -21,7 +21,7 @@ var server = app.listen(configs.NODEJS_PORT, configs.NODEJS_IP, function(){
   console.log('%s: Node server started on %s:%d', Date(Date.now()), configs.NODEJS_IP, configs.NODEJS_PORT);
   connection.init();
   routes.configure(app);
-  
+
   sunShade.initTable();
   // wristBand.initTable();
 

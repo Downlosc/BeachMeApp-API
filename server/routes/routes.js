@@ -1,5 +1,5 @@
 var sunShade = require('../models/sunshade');
-var configs = require('../../config/config'+(process.env.NODE_ENV || ''));
+var configs = require('../../config/config_'+(process.env.NODE_ENV || ''));
 
 module.exports = {
   configure: function(app){

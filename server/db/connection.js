@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var configs = require('../../config/config'+(process.env.NODE_ENV || ''));
+var configs = require('../../config/config_'+(process.env.NODE_ENV || ''));
 
 function Connection() {
     this.pool = null;
