@@ -88,8 +88,9 @@ function sunShade() {
             con.query([
                 'CREATE TABLE IF NOT EXISTS  `sunshade` (',
                 '`id` BIGINT(20) NOT NULL AUTO_INCREMENT, ',
-                'PRIMARY KEY (`id`)',
-                ') ENGINE=InnoDB DEFAULT CHARSET=utf8'
+                '`code`VARCHAR(10) NOT NULL, ',
+                'PRIMARY KEY (`id`), ',
+                ')ENGINE=InnoDB DEFAULT CHARSET=utf8'
             ].join(' '), function(err, result) {
                 if (err) throw err;
 

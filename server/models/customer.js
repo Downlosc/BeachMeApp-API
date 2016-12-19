@@ -80,11 +80,13 @@ function customer() {
         connection.acquire(function(err, con) {
             con.query([
                 'CREATE TABLE IF NOT EXITS `customer`(',
-                'id BIGINT(20) NOT NULL AUTO_INCREMENT,',
-                'name VARCHAR(50) NOT NULL,',
-                'surname VARCHAR(50) NOT NULL,'
-                'PRIMARY KEY (`id`)',
-                ')ENGINE=InnoDB CHARSET=utf8'
+                '`id` BIGINT(20) NOT NULL AUTO_INCREMENT,',
+                '`name` VARCHAR(50) NOT NULL,',
+                '`surname` VARCHAR(50) NOT NULL,',
+                '`sunshadeId` VARCHAR(10) NOT NULL,',
+                'PRIMARY KEY (`id`),',
+                'FOREIGN KEY (sunshadeId) REFERENCES sunshade(code) ',
+                ')ENGINE=InnoDB DEFAULT CHARSET=utf8'
             ].join(''), function(err, result) {
                 if (err) throw err;
                 if (!result.warningCount) {
@@ -95,6 +97,15 @@ function customer() {
                 return true;
             });
         });
+    }
+
+    this.getCustomerSunshade = function(req, res){
+      connection.acquire(function(err, con){
+        con.query([
+          'SELECT * FROM  customer a, sunshade b',
+          'WHERE a.sunshadeId = b.code;'
+        ])
+      })
     }
 }
 

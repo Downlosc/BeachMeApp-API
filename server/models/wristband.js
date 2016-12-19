@@ -81,8 +81,10 @@ function wristBand() {
             con.query([
                 'CREATE TABLE IF NOT EXITS `wristband`(',
                 'id BIGINT(20) NOT NULL AUTO_INCREMENT,',
-                'credito NUMERIC(15,2),',
+                'credit NUMERIC(15,2),',
+                'idCustomer BIGINT(20) NOT NULL',
                 'PRIMARY KEY (`id`)',
+                'FOREIGN KEY (`idCustomer`) REFERENCES customer(id)',
                 ')ENGINE=InnoDB CHARSET=utf8'
             ].join(''), function(err, result) {
                 if (err) throw err;
