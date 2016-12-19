@@ -104,8 +104,8 @@ function customer() {
         con.query([
           'SELECT * FROM  customer a, sunshade b',
           'WHERE a.sunshadeId = b.code;'
-        ])
-      })
+        ]);
+      });
     }
 }
 
