@@ -1,6 +1,7 @@
-var sunShade = require('../models/sunshade');
+var sunshade = require('../models/sunshade');
 var wristBand = require('../models/wristband');
 var customer = require('../models/customer');
+var beachlounger = require('../models/beachlounger');
 var configs = require('../../config/config_' + (process.env.NODE_ENV || ''));
 
 module.exports = {
@@ -33,17 +34,17 @@ module.exports = {
         app.post('/wristband/', function(req, res) {
             wristBand.create(req.body, res);
         });
-        add.put('/wristband/', function(req, res) {
+        app.put('/wristband/', function(req, res) {
             wristBand.update(req.params.id, res);
         });
-        add.delete('wristband/:id', function(req, res) {
+        app.delete('wristband/:id', function(req, res) {
             wristBand.delete(req.params.id, res);
         });
 
         app.get('/customer/', function(req, res) {
             customer.getAll(res);
         });
-        app.get('/customer/:id', function(reqm res) {
+        app.get('/customer/:id', function(req, res) {
             customer.getOne(req.params.id, res);
         });
         app.post('/customer/', function(req, res) {
@@ -55,5 +56,21 @@ module.exports = {
         app.delete('/customer/:id', function(req, res) {
             customer.delete(req.params.id, res);
         });
+
+        app.get('/beachlounger/', function(req, res) {
+            beachlounger.getAll(res);
+        });
+        app.get('/beachlounger/:id', function(req, res) {
+            beachlounger.getOne(req.params.id, res);
+        });
+        app.post('/beachlounger/', function(req, res) {
+            beachlounger.create(req.body, res);
+        });
+        app.put('/beachlounger/:id', function(req, res) {
+            beachlounger.update(req.params.id, res);
+        });
+        app.delete('/beachlounger/:id', function(req, res) {
+            beachlounger.delete(req.params.id, res);
+        })
     }
 }

@@ -6,8 +6,10 @@ var connection = require('./server/db/connection');
 
 
 var routes = require('./server/routes/routes');
-var sunShade = require('./server/models/sunshade');
-var wristBand = require('./server/models/wristband');
+var sunshade = require('./server/models/sunshade');
+var wristband = require('./server/models/wristband');
+var customer = require('./server/models/customer');
+var beachlounger = require('./server/models/beachlounger');
 
 
 var app  = express();
@@ -22,8 +24,10 @@ var server = app.listen(configs.NODEJS_PORT, configs.NODEJS_IP, function(){
   connection.init();
   routes.configure(app);
 
-  sunShade.initTable();
-  // wristBand.initTable();
+  sunshade.initTable();
+  wristband.initTable();
+  customer.initTable();
+  beachlounger.initTable();
 
   app.get('/', function(req, res){
     res.status(200).json({

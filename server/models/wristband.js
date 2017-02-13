@@ -7,7 +7,7 @@ function wristBand() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Get all wristband failed";
+                        "message": "Get all wristband failed"
                     });
                 } else {
                     res.status(200).json(result);
@@ -22,7 +22,7 @@ function wristBand() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Get wristband with id " + id + "failed : " + err;
+                        "message": "Get wristband with id " + id + "failed : " + err
                     });
                 } else {
                     res.status(200).json(result);
@@ -37,7 +37,7 @@ function wristBand() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Creation of the wristband failed";
+                        "message": "Creation of the wristband failed"
                     });
                 } else {
                     res.status(200).json(result);
@@ -52,7 +52,7 @@ function wristBand() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "messgae": "Updating wristband with id" + id + "failed" + err;
+                        "messgae": "Updating wristband with id" + id + "failed" + err
                     });
                 } else {
                     res.status(200).json(result);
@@ -67,7 +67,7 @@ function wristBand() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Deleting wristband with id " + id + "failed " + err;
+                        "message": "Deleting wristband with id " + id + "failed " + err
                     });
                 } else {
                     res.staus(200).json(result);
@@ -79,19 +79,19 @@ function wristBand() {
     this.initTable = function(req, res) {
         connection.acquire(function(err, con) {
             con.query([
-                'CREATE TABLE IF NOT EXITS `wristband`(',
-                'id BIGINT(20) NOT NULL AUTO_INCREMENT,',
-                'credit NUMERIC(15,2),',
-                'idCustomer BIGINT(20) NOT NULL',
-                'PRIMARY KEY (`id`)',
-                'FOREIGN KEY (`idCustomer`) REFERENCES customer(id)',
-                ')ENGINE=InnoDB CHARSET=utf8'
-            ].join(''), function(err, result) {
+                'CREATE TABLE IF NOT EXISTS `wristband` ( ',
+                '`IdWristband` BIGINT(20) NOT NULL AUTO_INCREMENT, ',
+                '`credit` NUMERIC(15,2), ',
+                '`IdCustomer` BIGINT(20) NOT NULL, ',
+                'PRIMARY KEY (`IdWristband`), ',
+                'FOREIGN KEY(`IdCustomer`) REFERENCES `Customer`(`IdCustomer`)',
+                'ON UPDATE CASCADE ON DELETE CASCADE',
+                ')ENGINE=InnoDB;'
+            ].join(' '), function(err, result) {
                 if (err) throw err;
                 if (!result.warningCount) {
                     console.log('Table WRISTBAND created with success');
                 }
-
                 con.release();
                 return true;
             });

@@ -7,14 +7,14 @@ function customer() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Get all customer failed";
+                        "message": "Get all customer failed"
                     });
                 } else {
                     res.status(200).json(result);
                 }
             });
         });
-    };
+    }
 
     this.getOne = function(id, res) {
         connection.acquire(function(err, con) {
@@ -22,14 +22,14 @@ function customer() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Get customer with id " + id + "failed : " + err;
+                        "message": "Get customer with id " + id + "failed : " + err
                     });
                 } else {
                     res.status(200).json(result);
                 }
             });
         });
-    };
+    }
 
     this.create = function(customer, res) {
         connection.acquire(function(err, con) {
@@ -37,14 +37,14 @@ function customer() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Creation of the customer failed";
+                        "message": "Creation of the customer failed" + err
                     });
                 } else {
                     res.status(200).json(result);
                 }
             });
         });
-    };
+    }
 
     this.update = function(id, res) {
         connection.acquire(function(err, con) {
@@ -52,14 +52,14 @@ function customer() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "messgae": "Updating customer with id" + id + "failed" + err;
+                        "messgae": "Updating customer with id" + id + "failed" + err
                     });
                 } else {
                     res.status(200).json(result);
                 }
             });
         });
-    };
+    }
 
     this.delete = function(id, res) {
         connection.acquire(function(err, con) {
@@ -67,32 +67,30 @@ function customer() {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Deleting customer with id " + id + "failed " + err;
+                        "message": "Deleting customer with id " + id + "failed " + err
                     });
                 } else {
                     res.staus(200).json(result);
                 }
             });
         });
-    };
+    }
 
     this.initTable = function(req, res) {
         connection.acquire(function(err, con) {
             con.query([
-                'CREATE TABLE IF NOT EXITS `customer`(',
-                '`id` BIGINT(20) NOT NULL AUTO_INCREMENT,',
-                '`name` VARCHAR(50) NOT NULL,',
-                '`surname` VARCHAR(50) NOT NULL,',
-                '`sunshadeId` VARCHAR(10) NOT NULL,',
-                'PRIMARY KEY (`id`),',
-                'FOREIGN KEY (sunshadeId) REFERENCES sunshade(code) ',
-                ')ENGINE=InnoDB DEFAULT CHARSET=utf8'
-            ].join(''), function(err, result) {
+              'CREATE TABLE IF NOT EXISTS `Customer`( ',
+              '`IdCustomer` BIGINT (20) NOT NULL AUTO_INCREMENT, ',
+              '`IdSunshade` BIGINT (20) NOT NULL, ',
+              '`Name` VARCHAR (15), ',
+              '`Surname` VARCHAR (20), ',
+              'PRIMARY KEY (`IdCustomer`) ',
+              ')ENGINE=InnoDB;'
+            ].join(' '), function(err, result) {
                 if (err) throw err;
                 if (!result.warningCount) {
                     console.log('Table CUSTOMER created with success');
                 }
-
                 con.release();
                 return true;
             });
@@ -102,9 +100,19 @@ function customer() {
     this.getCustomerSunshade = function(req, res){
       connection.acquire(function(err, con){
         con.query([
-          'SELECT * FROM  customer a, sunshade b',
-          'WHERE a.sunshadeId = b.code;'
-        ]);
+          'SELECT *',
+          'FROM Customer c, Sunshade s',
+          'WHERE c.IdSunshade = s.IdSunshade;'
+        ].join(' '), function (err, result) {
+          con.release();
+          if(err) {
+            res.status(500).json({
+              "message" : "Bad request..Select failed" + err
+            });
+          } else {
+            res.status(200).json(result);
+          }
+        });
       });
     }
 }
