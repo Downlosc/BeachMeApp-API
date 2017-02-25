@@ -11,8 +11,8 @@ function Connection() {
             port: configs.MYSQL_DB_PORT,
             user: configs.MYSQL_DB_USERNAME,
             password: configs.MYSQL_DB_PASSWORD,
-            // database: 'heroku_4fd7eff19479e0f'
-            database: 'beachmeup'
+            database: 'heroku_4fd7eff19479e0f'
+            //database: 'beachmeup'
         });
     };
 
