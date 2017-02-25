@@ -2,7 +2,8 @@ var sunshade = require('../models/sunshade');
 var wristBand = require('../models/wristband');
 var customer = require('../models/customer');
 var beachlounger = require('../models/beachlounger');
-var configs = require('../../config/config_' + (process.env.NODE_ENV || ''));
+var payment = require('../models/payment');
+var configs = require('../../config/config');
 
 module.exports = {
     configure: function(app) {
@@ -71,6 +72,19 @@ module.exports = {
         });
         app.delete('/beachlounger/:id', function(req, res) {
             beachlounger.delete(req.params.id, res);
-        })
+        });
+
+        app.get('/payment/', function(req, res) {
+            payment.getAll(res);
+        });
+
+        app.get('/payment/:id', function(req, res) {
+            payment.getPaymentPerWristbandId(req.params.id, res);
+        });
+
+        app.post('/payment/', function(req, res){
+            payment.create(req.body, res);
+        });
+
     }
 }

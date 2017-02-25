@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 
-var configs = require('./config/config_'+ (process.env.NODE_ENV || ''));
+var configs = require('./config/config');
 var connection = require('./server/db/connection');
 
 
@@ -10,7 +10,7 @@ var sunshade = require('./server/models/sunshade');
 var wristband = require('./server/models/wristband');
 var customer = require('./server/models/customer');
 var beachlounger = require('./server/models/beachlounger');
-
+var payment = require('./server/models/payment');
 
 var app  = express();
 app.use(bodyparser.urlencoded({
@@ -24,10 +24,11 @@ var server = app.listen(configs.NODEJS_PORT, configs.NODEJS_IP, function(){
   connection.init();
   routes.configure(app);
 
-  sunshade.initTable();
-  wristband.initTable();
   customer.initTable();
+  wristband.initTable();
+  sunshade.initTable();
   beachlounger.initTable();
+  payment.initTable();
 
   app.get('/', function(req, res){
     res.status(200).json({

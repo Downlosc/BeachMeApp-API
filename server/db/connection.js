@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var configs = require('../../config/config_'+(process.env.NODE_ENV || ''));
+var configs = require('../../config/config');
 
 function Connection() {
     this.pool = null;
@@ -11,6 +11,7 @@ function Connection() {
             port: configs.MYSQL_DB_PORT,
             user: configs.MYSQL_DB_USERNAME,
             password: configs.MYSQL_DB_PASSWORD,
+            // database: 'heroku_4fd7eff19479e0f'
             database: 'beachmeup'
         });
     };

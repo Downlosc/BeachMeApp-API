@@ -79,12 +79,12 @@ function wristBand() {
     this.initTable = function(req, res) {
         connection.acquire(function(err, con) {
             con.query([
-                'CREATE TABLE IF NOT EXISTS `wristband` ( ',
+                'CREATE TABLE IF NOT EXISTS `Wristband` ( ',
                 '`IdWristband` BIGINT(20) NOT NULL AUTO_INCREMENT, ',
-                '`credit` NUMERIC(15,2), ',
+                '`credit` DECIMAL(15,2) NOT NULL, ',
                 '`IdCustomer` BIGINT(20) NOT NULL, ',
                 'PRIMARY KEY (`IdWristband`), ',
-                'FOREIGN KEY(`IdCustomer`) REFERENCES `Customer`(`IdCustomer`)',
+                'FOREIGN KEY (`IdCustomer`) REFERENCES `Customer` (`IdCustomer`)',
                 'ON UPDATE CASCADE ON DELETE CASCADE',
                 ')ENGINE=InnoDB;'
             ].join(' '), function(err, result) {
