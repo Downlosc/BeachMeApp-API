@@ -3,7 +3,7 @@ var connection = require('../db/connection');
 function sunshade() {
     this.getAll = function(res) {
         connection.acquire(function(err, con) {
-            con.query('SELECT * FROM Sunshade;', function(err, result) {
+            con.query('SELECT * FROM Sunshade ORDER BY SunshadeNumber;', function(err, result) {
                 con.release();
                 if (err) {
                     res.status(500).json({

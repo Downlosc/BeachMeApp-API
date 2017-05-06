@@ -82,6 +82,7 @@ function wristBand() {
                 'CREATE TABLE IF NOT EXISTS `Wristband` ( ',
                 '`IdWristband` BIGINT(20) NOT NULL AUTO_INCREMENT, ',
                 '`credit` DECIMAL(15,2) NOT NULL, ',
+                '`wrist_code` VARCHAR(15) NOT NULL, ',
                 '`IdCustomer` BIGINT(20) NOT NULL, ',
                 'PRIMARY KEY (`IdWristband`), ',
                 'FOREIGN KEY (`IdCustomer`) REFERENCES `Customer` (`IdCustomer`)',

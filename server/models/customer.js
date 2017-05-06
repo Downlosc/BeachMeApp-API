@@ -32,15 +32,30 @@ function customer() {
     }
 
     this.create = function(customer, res) {
+        var wrist = {
+            wrist_code: customer.wrist_code,
+            credit: customer.credit
+        };
+        delete customer.wrist_code;
+        delete customer.credit;
         connection.acquire(function(err, con) {
             con.query('INSERT INTO Customer SET ?', customer, function(err, result) {
-                con.release();
                 if (err) {
                     res.status(500).json({
                         "message": "Creation of the customer failed" + err
                     });
                 } else {
-                    res.status(200).json(result);
+                    wrist.IdCustomer = result.insertId;
+                    con.query('INSERT INTO Wristband SET ?', wrist, function(err, resultW) {
+                        con.release();
+                        if (err) {
+                            res.status(500).json({
+                                "message": "Creation of the wristband failed" + err
+                            });
+                        } else {
+                            res.status(200).json(result);
+                        }
+                    });
                 }
             });
         });
@@ -79,14 +94,14 @@ function customer() {
     this.initTable = function(req, res) {
         connection.acquire(function(err, con) {
             con.query([
-              'CREATE TABLE IF NOT EXISTS `Customer`( ',
-              '`IdCustomer` BIGINT (20) NOT NULL AUTO_INCREMENT, ',
-              '`CustomerCode` VARCHAR (5) NOT NULL, ',
-              '`Name` VARCHAR (15), ',
-              '`Surname` VARCHAR (20), ',
-              '`Stato` VARCHAR (1), ',
-              'PRIMARY KEY (`IdCustomer`) ',
-              ')ENGINE=InnoDB;'
+                'CREATE TABLE IF NOT EXISTS `Customer`( ',
+                '`IdCustomer` BIGINT (20) NOT NULL AUTO_INCREMENT, ',
+                '`CustomerCode` VARCHAR (5) NOT NULL, ',
+                '`Name` VARCHAR (15), ',
+                '`Surname` VARCHAR (20), ',
+                '`Stato` VARCHAR (1), ',
+                'PRIMARY KEY (`IdCustomer`) ',
+                ')ENGINE=InnoDB;'
             ].join(' '), function(err, result) {
                 if (err) throw err;
                 if (!result.warningCount) {
@@ -98,23 +113,23 @@ function customer() {
         });
     }
 
-    this.getCustomerSunshade = function(req, res){
-      connection.acquire(function(err, con){
-        con.query([
-          'SELECT *',
-          'FROM Customer c, Sunshade s',
-          'WHERE c.IdSunshade = s.IdSunshade;'
-        ].join(' '), function (err, result) {
-          con.release();
-          if(err) {
-            res.status(500).json({
-              "message" : "Bad request..Select failed" + err
+    this.getCustomerSunshade = function(req, res) {
+        connection.acquire(function(err, con) {
+            con.query([
+                'SELECT *',
+                'FROM Customer c, Sunshade s',
+                'WHERE c.IdSunshade = s.IdSunshade;'
+            ].join(' '), function(err, result) {
+                con.release();
+                if (err) {
+                    res.status(500).json({
+                        "message": "Bad request..Select failed" + err
+                    });
+                } else {
+                    res.status(200).json(result);
+                }
             });
-          } else {
-            res.status(200).json(result);
-          }
         });
-      });
     }
 }
 
