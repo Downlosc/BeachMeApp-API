@@ -8,22 +8,22 @@ var configs = require('../../config/config');
 module.exports = {
     configure: function(app) {
         app.get('/sunshade/', function(req, res) {
-            sunShade.getAll(res);
+            sunshade.getAll(res);
         });
         app.get('/sunshade/:id', function(req, res) {
-            sunShade.getOne(req.params.id, res);
+            sunshade.getOne(req.params.id, res);
         });
 
         app.post('/sunshade/', function(req, res) {
-            sunShade.create(req.body, res);
+            sunshade.create(req.body, res);
         });
 
         app.put('/sunshade/:id', function(req, res) {
-            sunShade.update(req.params.id, req.body, res);
+            sunshade.update(req.params.id, req.body, res);
         });
 
         app.delete('/sunshade/:id', function(req, res) {
-            sunShade.delete(req.params.id, res);
+            sunshade.delete(req.params.id, res);
         })
 
         app.get('/wristband/', function(req, res) {
