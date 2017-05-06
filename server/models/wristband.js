@@ -3,7 +3,7 @@ var connection = require('../db/connection');
 function wristBand() {
     this.getAll = function(res) {
         connection.acquire(function(err, con) {
-            con.query('SELECT * FROM wristband', function(err, result) {
+            con.query('SELECT * FROM Wristband', function(err, result) {
                 con.release();
                 if (err) {
                     res.status(500).json({
@@ -18,7 +18,7 @@ function wristBand() {
 
     this.getOne = function(id, res) {
         connection.acquire(function(err, con) {
-            con.query('SELECT * FROM wristband WHERE id = ?', [id], function(err, result) {
+            con.query('SELECT * FROM Wristband WHERE id = ?', [id], function(err, result) {
                 con.release();
                 if (err) {
                     res.status(500).json({
@@ -33,11 +33,11 @@ function wristBand() {
 
     this.create = function(wristband, res) {
         connection.acquire(function(err, con) {
-            con.query('INSERT INTO wristband SET ?', wristband, function(err, result) {
+            con.query('INSERT INTO Wristband SET ?', wristband, function(err, result) {
                 con.release();
                 if (err) {
                     res.status(500).json({
-                        "message": "Creation of the wristband failed"
+                        "message": "Creation of the Wristband failed"
                     });
                 } else {
                     res.status(200).json(result);
@@ -48,7 +48,7 @@ function wristBand() {
 
     this.update = function(id, res) {
         connection.acquire(function(err, con) {
-            con.query('UPDATE wristband SET ? WHERE id = ?', [wristband, id], function(err, result) {
+            con.query('UPDATE Wristband SET ? WHERE id = ?', [wristband, id], function(err, result) {
                 con.release();
                 if (err) {
                     res.status(500).json({
@@ -63,7 +63,7 @@ function wristBand() {
 
     this.delete = function(id, res) {
         connection.acquire(function(err, con) {
-            con.query('DELETE FROM wristband WHERE id = ?', [id], function(err, result) {
+            con.query('DELETE FROM Wristband WHERE id = ?', [id], function(err, result) {
                 con.release();
                 if (err) {
                     res.status(500).json({
