@@ -24,7 +24,7 @@ module.exports = {
 
         app.delete('/sunshade/:id', function(req, res) {
             sunshade.delete(req.params.id, res);
-        })
+        });
 
         app.get('/wristband/', function(req, res) {
             wristBand.getAll(res);
